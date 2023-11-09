@@ -1,2 +1,3 @@
 # URL-shortener
-An applicatio  used to shorten url
+An application
+used to shorten url
