@@ -46,10 +46,15 @@ app.use(express.static("views"));
 // Route to handle shortening a URL
 app.post("/shorten", (req, res) => {
   const longUrl = req.body.longUrl;
+  // Ensure proper URL format
+  const completeLongUrl = /^(f|ht)tps?:\/\//i.test(longUrl)
+    ? longUrl
+    : `http://${longUrl}`;
+
   const shortUrl = shortid.generate();
 
   // Store the URL mapping in memory and save to file
-  urlMappings[shortUrl] = longUrl;
+  urlMappings[shortUrl] = completeLongUrl;
   saveUrlMappings();
 
   // Send an email confirmation
